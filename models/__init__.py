@@ -1,0 +1,1 @@
+"""Modele domenowe symulacji"""

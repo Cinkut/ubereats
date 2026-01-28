@@ -1,0 +1,1 @@
+"""Wzorzec Observer - obserwatorzy zdarzeń"""

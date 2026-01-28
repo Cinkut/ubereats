@@ -1,0 +1,42 @@
+"""
+Definicje kolorów dla wizualizacji
+
+Centralne miejsce dla wszystkich kolorów używanych w GUI
+"""
+
+import config
+
+# Kolory z config (można nadpisać)
+COLOR_BACKGROUND = config.COLOR_BACKGROUND
+COLOR_ROAD = config.COLOR_ROAD
+COLOR_TEXT = config.COLOR_TEXT
+COLOR_PANEL = config.COLOR_PANEL
+
+# Kolory restauracji
+COLOR_RESTAURANT = config.COLOR_RESTAURANT
+COLOR_RESTAURANT_BORDER = (180, 40, 40)
+
+# Kolory klientów
+COLOR_CUSTOMER = config.COLOR_CUSTOMER
+COLOR_CUSTOMER_BORDER = (200, 150, 0)
+
+# Kolory kurierów (zgodne z stanami)
+COLOR_COURIER_IDLE = config.COLOR_COURIER_IDLE
+COLOR_COURIER_TO_RESTAURANT = config.COLOR_COURIER_TO_RESTAURANT
+COLOR_COURIER_WAITING = (255, 200, 0)  # Żółty - czeka na jedzenie
+COLOR_COURIER_TO_CUSTOMER = config.COLOR_COURIER_TO_CUSTOMER
+COLOR_COURIER_ACCIDENT = config.COLOR_COURIER_ACCIDENT
+
+# Kolory UI
+COLOR_UI_BORDER = (180, 180, 180)
+COLOR_UI_HEADER = (60, 120, 180)
+COLOR_UI_POSITIVE = (50, 180, 50)
+COLOR_UI_NEGATIVE = (220, 50, 50)
+COLOR_UI_WARNING = (255, 160, 0)
+
+# Kolory linii/tras
+COLOR_ROUTE_TO_RESTAURANT = (100, 150, 255)
+COLOR_ROUTE_TO_CUSTOMER = (255, 150, 100)
+
+# Transparentność
+ALPHA_ROUTE = 128

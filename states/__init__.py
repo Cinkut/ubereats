@@ -1,0 +1,1 @@
+"""Wzorzec State - stany kuriera"""

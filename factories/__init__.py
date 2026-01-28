@@ -1,0 +1,1 @@
+"""Wzorzec Factory - fabryki obiektów"""
