@@ -221,6 +221,3 @@ Po zakończeniu symulacji generowane są:
 
 - `simulation.log` - logi zdarzeń
 - Statystyki wyświetlane w konsoli
-
-## Przykładowe metryki
-
