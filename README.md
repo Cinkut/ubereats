@@ -213,14 +213,12 @@ lab6/
 
 - **Python 3.13**
 - **Pygame 2.5+** - wizualizacja
-- **SQLAlchemy 2.0+** - ORM
 - **NumPy 1.24+** - obliczenia
 
 ## Wyniki symulacji
 
 Po zakończeniu symulacji generowane są:
 
-- `uber_eats.db` - baza danych SQLite z historią
 - `simulation.log` - logi zdarzeń
 - Statystyki wyświetlane w konsoli
 
