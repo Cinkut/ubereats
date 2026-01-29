@@ -37,26 +37,26 @@ class SurgePricing(PricingStrategy):
         Returns:
             float: Dodatkowa opłata w $
         """
-        # Zabezpieczenie przed dzieleniem przez zero
+        # Oblicz stosunek popyt/podaż
         if context.num_available_couriers == 0:
-            # Brak kurierów = maksymalny surge
-            surge_multiplier = 5.0
+            # Brak kurierów:
+            # Zamiast panikować (dzielić przez 0.5), zakładamy "wirtualną pojemność"
+            # równą 5 kurierom (zakładamy, że zaraz ktoś wróci).
+            # To zapobiega skokom ceny do 10x przy zaledwie 3 zamówieniach.
+            ratio = context.num_active_orders / 5.0
         else:
-            # Oblicz stosunek popyt/podaż
             ratio = context.num_active_orders / context.num_available_couriers
             
-            # NIELINIOWY wzrost - potęga 1.5
-            # To sprawia że cena rośnie szybciej niż liniowo!
-            surge_multiplier = max(1.0, ratio ** 1.5)
-            
-            # Ogranicz maksymalny surge do rozsądnego poziomu
-            surge_multiplier = min(surge_multiplier, 5.0)
+        # Łagodniejszy wzrost - potęga 1.2 (zamiast 1.5)
+        surge_multiplier = max(1.0, ratio ** 1.2)
+        
+        # Ogranicz maksymalny surge
+        surge_multiplier = min(surge_multiplier, 10.0)
         
         # Oblicz bazową cenę i zastosuj surge
         base_price = config.BASE_PRICE + context.distance * config.PRICE_PER_KM
         
         # Dodatkowa opłata = (surge - 1.0) * base_price
-        # Przykład: surge 2.0x → dodatkowe 100% ceny bazowej
         additional_charge = (surge_multiplier - 1.0) * base_price
         
         return additional_charge
@@ -72,11 +72,12 @@ class SurgePricing(PricingStrategy):
             float: Mnożnik surge
         """
         if context.num_available_couriers == 0:
-            return 5.0
-        
-        ratio = context.num_active_orders / context.num_available_couriers
-        surge = max(1.0, ratio ** 1.5)
-        return min(surge, 5.0)
+            ratio = context.num_active_orders / 5.0
+        else:
+            ratio = context.num_active_orders / context.num_available_couriers
+            
+        surge = max(1.0, ratio ** 1.2)
+        return min(surge, 10.0)
     
     def get_name(self) -> str:
         return "Surge Pricing"

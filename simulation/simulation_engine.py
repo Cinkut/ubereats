@@ -127,7 +127,11 @@ class SimulationEngine:
         self.order_manager.attach(self.order_tracker)
         self.order_manager.attach(self.revenue_tracker)
         
+        # Podłącz wszystkich obserwatorów do courier_manager
+        # (bo wysyła powiadomienia o dostawach i wypadkach)
         self.courier_manager.attach(self.statistics_logger)
+        self.courier_manager.attach(self.order_tracker)       # NOWE!
+        self.courier_manager.attach(self.revenue_tracker)     # NOWE!
         
         self.weather_system.attach(self.statistics_logger)
     
@@ -157,7 +161,7 @@ class SimulationEngine:
     def _run_without_visualization(self, max_steps: int):
         """Uruchamia symulację bez wizualizacji (szybciej)"""
         try:
-            while self.is_running and self.current_step < max_steps:
+            while self.is_running and (max_steps <= 0 or self.current_step < max_steps):
                 self.step()
                 
                 # Co 100 kroków wyświetl postęp
@@ -181,7 +185,7 @@ class SimulationEngine:
         view = PygameView(self)
         
         try:
-            while self.is_running and self.current_step < max_steps:
+            while self.is_running and (max_steps <= 0 or self.current_step < max_steps):
                 # Obsłuż eventy (zamknięcie okna, klawisze)
                 if not view.handle_events():
                     break
@@ -254,7 +258,6 @@ class SimulationEngine:
         print(f"\nPRZYCHÓD:")
         print(f"  • Łączny: ${revenue_stats['total_revenue']:.2f}")
         print(f"  • Średnia cena: ${revenue_stats['average_price']:.2f}")
-        print(f"  • Średni surge: {revenue_stats['average_surge']:.2f}x")
         print(f"  • Maksymalny surge: {revenue_stats['max_surge']:.2f}x")
         
         # Statystyki kurierów

@@ -13,7 +13,7 @@ NUM_COURIERS = 10
 NUM_CUSTOMERS_POOL = 20  # pula potencjalnych klientów
 
 # Częstotliwość zamówień
-ORDER_SPAWN_RATE = 0.3  # prawdopodobieństwo nowego zamówienia/step (30%)
+ORDER_SPAWN_RATE = 0.09  # prawdopodobieństwo nowego zamówienia/step (9%)
 
 # Cenowanie
 BASE_PRICE = 5.0  # $ - bazowa cena dostawy

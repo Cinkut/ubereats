@@ -74,7 +74,13 @@ Przykłady:
         '--steps', '-s',
         type=int,
         default=1000,
-        help='Liczba kroków symulacji (domyślnie: 1000)'
+        help='Liczba kroków symulacji (0 = bez limitu, domyślnie: 1000)'
+    )
+    
+    parser.add_argument(
+        '--infinite', '-i',
+        action='store_true',
+        help='Tryb nieskończony (to samo co --steps 0)'
     )
     
     parser.add_argument(
@@ -159,6 +165,10 @@ def main():
     # Parsuj argumenty
     args = parse_arguments()
     
+    # Obsługa trybu nieskończonego
+    if args.infinite:
+        args.steps = 0
+    
     # Wyświetl nagłówek
     print_header()
     print_patterns_info()
@@ -167,7 +177,9 @@ def main():
     print("\n" + "=" * 70)
     print("PARAMETRY SYMULACJI")
     print("=" * 70)
-    print(f"  • Kroki:        {args.steps}")
+    
+    steps_info = "bez limitu (nieskończona)" if args.steps <= 0 else str(args.steps)
+    print(f"  • Kroki:        {steps_info}")
     print(f"  • Kurierzy:     {args.couriers}")
     print(f"  • Restauracje:  {args.restaurants}")
     print(f"  • Wizualizacja: {'NIE' if args.no_visual else 'TAK (Pygame)'}")

@@ -57,6 +57,7 @@ class RevenueTracker(Observer):
         weather = event.get('weather', 'unknown')
         
         self.order_prices.append(price)
+        self.surge_multipliers.append(surge)  # NOWE - zapisz surge!
         
         # Zapisz przychód per warunek pogodowy
         self.revenue_per_weather[weather] = \
@@ -65,12 +66,14 @@ class RevenueTracker(Observer):
     def _handle_order_delivered(self, event: Dict[str, Any]):
         """Obsługuje dostarczenie zamówienia"""
         earnings = event.get('earnings', 0.0)
+        # Pobieramy price (jeśli dostępne, w starszej wersji to było to samo co earnings)
+        price = event.get('price', earnings)
         courier_name = event.get('courier_name', 'Unknown')
         
-        # Dodaj do całkowitego przychodu
-        self.total_revenue += earnings
+        # Dodaj do całkowitego przychodu (pełna kwota)
+        self.total_revenue += price
         
-        # Zapisz zarobek kuriera
+        # Zapisz zarobek kuriera (tylko prowizja)
         self.courier_earnings[courier_name] = \
             self.courier_earnings.get(courier_name, 0.0) + earnings
     

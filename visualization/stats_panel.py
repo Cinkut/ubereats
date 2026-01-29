@@ -130,7 +130,6 @@ class StatsPanel:
         revenue_text = [
             f"  Total: ${revenue_stats['total_revenue']:.2f}",
             f"  Avg price: ${revenue_stats['average_price']:.2f}",
-            f"  Avg surge: {revenue_stats['average_surge']:.2f}x",
             f"  Max surge: {revenue_stats['max_surge']:.2f}x"
         ]
         

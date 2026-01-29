@@ -76,8 +76,8 @@ class ToCustomerState(CourierState):
             if courier.current_order:
                 courier.current_order.mark_delivered()
                 
-                # Zarobek = cena zamówienia
-                earnings = courier.current_order.price
+                # Zarobek = 40% ceny zamówienia (reszta dla platformy)
+                earnings = courier.current_order.price * 0.40
                 courier.complete_delivery(earnings)
             
             # Wróć do stanu wolnego
